@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="POI-LLM:Web exploded">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="POI-LLM_Web exploded.war">
+      <element id="javaee-facet-resources" facet="POI-LLM/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="POI-LLM" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
