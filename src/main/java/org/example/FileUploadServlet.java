@@ -38,7 +38,7 @@ public class FileUploadServlet extends HttpServlet {
                     String updatedFileName = fileName + "_" + timeStamp;
 
                     // 指定本地保存文件的路径
-                    String uploadDir = "/path/to/save/uploaded/files/";
+                    String uploadDir = "./files/";
                     String filePath = uploadDir + updatedFileName;
 
                     // 创建本地文件并写入文件内容
