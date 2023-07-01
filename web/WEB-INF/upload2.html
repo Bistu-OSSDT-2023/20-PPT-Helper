@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .chat {
+            margin-top: 20px;
+            border: 1px solid #000;
+            padding: 10px;
+            height: 300px;
+            overflow: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .input-container {
+            display: flex;
+            width: 100%;
+        }
+
+        #message-input {
+            width: 90%;
+        }
+
+        #send-btn {
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload a PPT file</h2>
+    <input type="file" id="file" accept=".ppt,.pptx">
+    <button id="upload-btn" onclick="uploadFile()">Upload</button>
+    <progress id="progress-bar" value="0" max="100"></progress>
+    <button id="next-btn" disabled>Next Step</button>
+
+    <div class="chat" id="chat">
+        <!-- Messages will be added here dynamically -->
+        <div class="message">You: Hello</div>
+        <div class="message">ChatGPT: Hi there! How can I assist you today?</div>
+
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="message-input">
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- JavaScript functions here -->
+</body>
+</html>
+<!--TODO：1.自动滚动 2.美化-->
