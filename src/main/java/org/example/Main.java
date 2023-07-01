@@ -16,10 +16,10 @@ public class Main {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("prompt", "Translate the following English text to French: '{}'");
         parameters.put("max_tokens", "60");
-
+        String apiKey = System.getenv("OPENAI_API_KEY"); // 获取环境变量
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.openai.com/v1/engines/davinci-codex/completions"))
-                .header("Authorization", "Bearer YOUR_OPEN_AI_KEY")
+                .header("Authorization", "Bearer " + apiKey)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(parameters.toString()))
                 .build();
