@@ -1,18 +1,19 @@
-package org.example;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.*;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.RequestContext;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.servlet.*;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
 
 @WebServlet(name = "FileUploadServlet", value = "/Upload")
-@MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 
     @Override
@@ -26,7 +27,7 @@ public class FileUploadServlet extends HttpServlet {
 
         try {
             // 解析上传请求，获取文件项列表
-            List<FileItem> items = upload.parseRequest(request);
+            List<FileItem> items = upload.parseRequest((RequestContext) request);
             for (FileItem item : items) {
                 // 判断当前项是否为文件项，且字段名为"file"
                 if (!item.isFormField() && item.getFieldName().equals("file")) {
