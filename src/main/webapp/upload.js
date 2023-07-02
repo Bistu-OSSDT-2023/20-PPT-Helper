@@ -6,7 +6,7 @@ function uploadFile() {
     formData.append('file', file);
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/Upload', true);
+    xhr.open('POST', '/upload2', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log('File uploaded successfully.');
