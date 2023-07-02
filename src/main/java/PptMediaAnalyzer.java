@@ -1,5 +1,3 @@
-package org.example;
-
 import org.apache.poi.xslf.usermodel.*;
 
 import java.io.File;
