@@ -16,7 +16,7 @@ public class Main {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("prompt", "Translate the following English text to French: '{}'");
         parameters.put("max_tokens", "60");
-        String apiKey = System.getenv("OPENAI_API_KEY"); // 获取环境变量
+        String apiKey = System.getenv("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"); // 获取环境变量
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.openai.com/v1/engines/davinci-codex/completions"))
                 .header("Authorization", "Bearer " + apiKey)

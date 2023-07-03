@@ -10,7 +10,7 @@ public class PPTReader {
 
     public static void main(String[] args) {
         try {
-            readPPTFile("/Users/sunday/Downloads/my12-3.pptx");
+            readPPTFile("D:\\testPPT\\daxueshiguang.pptx");
         } catch (IOException e) {
             e.printStackTrace();
         }
