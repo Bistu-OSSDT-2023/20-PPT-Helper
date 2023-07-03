@@ -51,17 +51,65 @@ function printMessage(message) {
 }
 
 function sendMessage() {
+    // 获取消息输入元素和用户输入的消息
     var messageInput = document.getElementById('message-input');
     var message = messageInput.value;
 
+    // 检查用户是否输入了消息
     if (message) {
+        // 将用户的消息添加到聊天窗口
         var chat = document.getElementById('chat');
         chat.innerHTML += '<div class="message">You: ' + message + '</div>';
+
+        // 清空消息输入框
         messageInput.value = '';
 
-        // 在这里，你可以将消息发送到你的服务器，然后从服务器获取响应，然后显示在聊天区域。
-        // 这是一个基本的示例，你需要根据你的具体需求进行修改。
+        // 使用fetch API向服务器发送POST请求
+        fetch('/sse', {
+            method: 'POST',  // 使用POST方法
+            headers: {
+                'Content-Type': 'application/json'  // 设置内容类型为JSON
+            },
+            body: JSON.stringify({  // 将消息对象转化为JSON格式
+                message: message
+            })
+        })
+            .then(response => response.json())  // 将响应转化为JSON格式
+            .then(data => {
+                // 处理服务器返回的响应
+                console.log(data);
+            });
     } else {
+        // 如果用户没有输入消息，显示一个警告
         alert('Please enter a message!');
     }
 }
+var source = new EventSource('/sse');
+
+source.onmessage = function(event) {
+    // 这里直接使用event.data，而不是试图解析JSON
+    var data = event.data;
+
+    console.log('Received data: ' + data);
+};
+
+source.onerror = function(event) {
+    console.error('Error occurred:', event);
+};
+
+source.onmessage = function(event) {
+    // 将事件的data属性（JSON格式字符串）转化为对象
+    var data = JSON.parse(event.data);
+
+    // 根据事件类型进行不同的处理
+    if (event.event == 'add') {
+        // 如果事件类型是"add"，调用printMessage函数打印消息
+        printMessage(data);
+    } else if (event.event == 'finish') {
+        // 如果事件类型是"finish"，激活"Next Step"按钮并关闭EventSource
+        document.getElementById('next-btn').disabled = false;
+        source.close();
+    }
+};
+
+
