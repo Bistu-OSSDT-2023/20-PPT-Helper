@@ -16,7 +16,7 @@ public class GLM {
         // 创建一个HttpRequest对象
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://open.bigmodel.cn/api/paas/v3/model-api/chatglm_lite/"+mode)) // 将这里替换为你的API URL
-                .header("Authorization", "eyJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04iLCJ0eXAiOiJKV1QifQ.eyJhcGlfa2V5IjoiZTE5MTY4ZTczYWMzYTQ5OWQyYjRiYWNlMzA4YTcxNDciLCJleHAiOjE2ODgyOTU1NTk2NzMsInRpbWVzdGFtcCI6MTY4ODI5MTk1OTY3M30.A4gDe0n-FQNpSiP9f98akstLAFC7W-NbaLdifdp3sfQ") // 替换为你的Authorization String
+                .header("Authorization", "eyJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04iLCJ0eXAiOiJKV1QifQ.eyJhcGlfa2V5IjoiZTE5MTY4ZTczYWMzYTQ5OWQyYjRiYWNlMzA4YTcxNDciLCJleHAiOjE2ODgzNjg3NjU2OTYsInRpbWVzdGFtcCI6MTY4ODM2ODc2NDY5Nn0.xWawoI1b8LrGFyPKH_7dSzHNLGS7LWSshGOoHXMJ8vI") // 替换为你的Authorization String
                 .header("Content-Type", "application/json")
                 .POST(BodyPublishers.ofString(jsonRequestBody)) // 使用JSON字符串创建请求体
                 .build();
