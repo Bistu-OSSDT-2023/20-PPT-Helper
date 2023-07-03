@@ -2,30 +2,85 @@
 <html>
 <head>
     <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 20px;
+        }
+
+        .conversations {
+            width: 200px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #conversation-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .conversation {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .conversation:last-child {
+            border-bottom: none;
+        }
+
+
+
         .chat {
             margin-top: 20px;
             border: 1px solid #000;
             padding: 10px;
             height: 300px;
             overflow: auto;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .message {
             margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+
+        .message.from-user {
+            background-color: #d3eef7;
         }
 
         .input-container {
             display: flex;
             width: 100%;
+            margin-top: 10px;
         }
 
         #message-input {
             width: 90%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
 
         #send-btn {
             width: 10%;
+            padding: 5px 10px;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
         }
+
+        #send-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
     </style>
     <script src="upload.js"></script>
 </head>
@@ -49,6 +104,56 @@
     </div>
 
     <!-- JavaScript functions here -->
+
+    <script>
+        // 发送消息
+        function sendMessage() {
+            var messageInput = document.getElementById('message-input');
+            var message = messageInput.value;
+
+            if (message !== '') {
+                var chatContainer = document.getElementById('chat');
+                var messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', 'from-user');
+                messageDiv.textContent = 'You: ' + message;
+
+                chatContainer.appendChild(messageDiv);
+                scrollToBottom();
+
+                // 清空消息输入框
+                messageInput.value = '';
+            }
+        }
+
+        // 新建对话
+        function createNewConversation() {
+            var chatContainer = document.getElementById('chat');
+            chatContainer.innerHTML = "";
+
+            // 清空对话列表样式
+            var conversationList = document.getElementById('conversation-list');
+            var conversations = conversationList.getElementsByClassName('conversation');
+            for (var i = 0; i < conversations.length; i++) {
+                conversations[i].classList.remove('active');
+            }
+
+            // 添加新建对话样式
+            var newConversationButton = document.querySelector('.conversations button');
+            var newConversationLi = document.createElement('li');
+            newConversationLi.classList.add('conversation', 'active');
+            newConversationLi.innerHTML = '<button onclick="createNewConversation()">New Conversation</button>';
+            conversationList.insertBefore(newConversationLi, newConversationButton.parentNode);
+
+            // 滚动到聊天框底部
+            scrollToBottom();
+        }
+        // 滚动到聊天框底部
+        function scrollToBottom() {
+            var chatContainer = document.getElementById('chat');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+
 </body>
 </html>
 <!--TODO：1.自动滚动 2.美化-->
