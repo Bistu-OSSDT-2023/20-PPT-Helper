@@ -1,5 +1,8 @@
+<<<<<<< HEAD:src/main/java/org/example/PptMediaAnalyzer.java
 package org.example;
 
+=======
+>>>>>>> df9861e5a8ad248579355b2ad7c075373d323188:src/main/java/PptMediaAnalyzer.java
 import org.apache.poi.xslf.usermodel.*;
 
 import java.io.File;
