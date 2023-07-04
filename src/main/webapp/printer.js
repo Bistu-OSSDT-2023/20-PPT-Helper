@@ -32,6 +32,7 @@ function sendMessage() {
         assistantDiv.textContent = 'ChatGPT: ';
 
         chatContainer.appendChild(messageDiv);
+        chatContainer.appendChild(assistantDiv);
         scrollToBottom();
 
         // 清空消息输入框
