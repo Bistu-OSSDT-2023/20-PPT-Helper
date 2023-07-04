@@ -64,52 +64,116 @@ function sendMessage() {
         // 清空消息输入框
         messageInput.value = '';
 
-        // 使用fetch API向服务器发送POST请求
+
+
+        // 你想发送的消息
+        // var message = {
+        //     text: 'Hello, server!'
+        // };
+
+// 使用 fetch API 发送 POST 请求
         fetch('/sse', {
-            method: 'POST',  // 使用POST方法
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json'  // 设置内容类型为JSON
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({  // 将消息对象转化为JSON格式
-                message: message
+            body: JSON.stringify({
+                text:message
             })
-        })
-            .then(response => response.json())  // 将响应转化为JSON格式
-            .then(data => {
-                // 处理服务器返回的响应
-                console.log(data);
+        }).then(function(response) {
+            // 获取一个 ReadableStream
+            var reader = response.body.getReader();
+
+            // 获取chat元素
+            var chat = document.getElementById('chat');
+
+            // 使用一个递归函数来读取数据
+            function read() {
+                return reader.read().then(({ value, done }) => {
+                    if (done) {
+                        console.log('Stream complete');
+                        chat.innerHTML +=  '<div></div>'; // 结束消息
+                        return;
+                    }
+
+                    // 处理服务器发送的数据
+                    let receivedData = new TextDecoder().decode(value);
+
+                    // 根据你的SSE流格式，数据应该是按行分隔的
+                    let lines = receivedData.split('\n');
+
+                    for(let line of lines) {
+                        // 解析每一行，获取事件类型和数据
+                        let [key, ...values] = line.split(':');
+                        let value = values.join(':').trim();
+                        if(key === 'data') {
+                            // 如果这一行是data，那么将数据添加到chat元素中
+                            chat.innerHTML += value ;
+                        }
+                    }
+
+
+                    // 继续读取
+                    return read();
+                });
+            }
+
+            // 开始读取数据
+            chat.innerHTML+='<div class="message">ChatGPT: '; // 功能未达预期
+            read().catch(function(err) {
+                console.error('Error while reading:', err);
             });
-    } else {
-        // 如果用户没有输入消息，显示一个警告
-        alert('Please enter a message!');
-    }
-}
-var source = new EventSource('/sse');
+        }).catch(function(err) {
+            console.error('Error while sending:', err);
+        });}}
 
-source.onmessage = function(event) {
-    // 这里直接使用event.data，而不是试图解析JSON
-    var data = event.data;
 
-    console.log('Received data: ' + data);
-};
-
-source.onerror = function(event) {
-    console.error('Error occurred:', event);
-};
-
-source.onmessage = function(event) {
-    // 将事件的data属性（JSON格式字符串）转化为对象
-    var data = JSON.parse(event.data);
-
-    // 根据事件类型进行不同的处理
-    if (event.event == 'add') {
-        // 如果事件类型是"add"，调用printMessage函数打印消息
-        printMessage(data);
-    } else if (event.event == 'finish') {
-        // 如果事件类型是"finish"，激活"Next Step"按钮并关闭EventSource
-        document.getElementById('next-btn').disabled = false;
-        source.close();
-    }
-};
+        // 使用fetch API向服务器发送POST请求
+//         fetch('/sse', {
+//             method: 'POST',  // 使用POST方法
+//             headers: {
+//                 'Content-Type': 'application/json'  // 设置内容类型为JSON
+//             },
+//             body: JSON.stringify({  // 将消息对象转化为JSON格式
+//                 message: message
+//             })
+//         })
+//             .then(response => response.json())  // 将响应转化为JSON格式
+//             .then(data => {
+//                 // 处理服务器返回的响应
+//                 console.log(data);
+//             });
+//     } else {
+//         // 如果用户没有输入消息，显示一个警告
+//         alert('Please enter a message!');
+//     }
+// }
+// var source = new EventSource('/sse');
+//
+// source.onmessage = function(event) {
+//     // 这里直接使用event.data，而不是试图解析JSON
+//     var data = event.data;
+//
+//     console.log('Received data: ' + data);
+// };
+//
+// source.onerror = function(event) {
+//     console.error('Error occurred:', event);
+// };
+//
+// source.onmessage = function(event) {
+//     // 将事件的data属性（JSON格式字符串）转化为对象
+//     var data = JSON.parse(event.data);
+//
+//     // 根据事件类型进行不同的处理
+//     if (event.event == 'add') {
+//         // 如果事件类型是"add"，调用printMessage函数打印消息
+//         printMessage(data);
+//     } else if (event.event == 'finish') {
+//         // 如果事件类型是"finish"，激活"Next Step"按钮并关闭EventSource
+//         document.getElementById('next-btn').disabled = false;
+//         source.close();
+// //     }
+// };
 
 

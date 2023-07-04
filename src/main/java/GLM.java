@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GLM {
-    public static HttpRequest get_Request(String mode){
+    public static HttpRequest get_Request(String mode,String input_content){
         // 创建一个JSON字符串，作为请求体
-        String jsonRequestBody=get_jsonRequestBody();
+        String jsonRequestBody=get_jsonRequestBody(input_content);
         // 创建一个HttpRequest对象
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://open.bigmodel.cn/api/paas/v3/model-api/chatglm_lite/"+mode)) // 将这里替换为你的API URL
@@ -22,7 +22,7 @@ public class GLM {
                 .build();
         return request;
     }
-    public static String get_jsonRequestBody(){
+    public static String get_jsonRequestBody(String input_content){
 
         // 创建一个ObjectMapper对象，用于处理JSON
         ObjectMapper objectMapper = new ObjectMapper();
@@ -30,7 +30,7 @@ public class GLM {
         // 创建一个HashMap，用于存储"prompt"对象的数据
         Map<String, Object> prompt = new HashMap<>();
         prompt.put("role", "user");
-        prompt.put("content", "你好");
+        prompt.put("content", input_content);
 
         // 创建一个HashMap，用于存储请求体的数据
         Map<String, Object> requestBody = new HashMap<>();
@@ -50,10 +50,8 @@ public class GLM {
 
         // 创建一个HttpClient对象
         HttpClient client = HttpClient.newHttpClient();
-        // 创建一个JSON字符串，作为请求体
-        String jsonRequestBody=get_jsonRequestBody();
         // 创建一个HttpRequest对象
-        HttpRequest request = get_Request("invoke");
+        HttpRequest request = get_Request("invoke","你好");
 
         try {
             // 使用HttpClient发送请求，并获取HttpResponse对象

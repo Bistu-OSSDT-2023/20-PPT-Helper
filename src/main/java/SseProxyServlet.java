@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -13,15 +14,27 @@ public class SseProxyServlet extends HttpServlet {
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/event-stream");
         resp.setCharacterEncoding("UTF-8");
+        // 获取请求的内容类型
+        String contentType = req.getContentType();
+        Message message = null;
+        // 确保内容类型为JSON
+        if (contentType != null && contentType.contains("application/json")) {
+            // 使用request.getInputStream()获取请求体中的内容
+            // 使用Jackson的ObjectMapper来解析JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+             message = objectMapper.readValue(req.getInputStream(), Message.class);
 
+            // 现在你可以访问用户输入的消息
+            System.out.println("Received message: " + message.getText());
+        }
         // Start async
         final AsyncContext asyncContext = req.startAsync();
 
         // Connect to the remote server
-        HttpRequest request = GLM.get_Request("sse-invoke");
+        HttpRequest request = GLM.get_Request("sse-invoke",message.getText());
 
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
                 .thenAccept(response -> {
@@ -46,3 +59,6 @@ public class SseProxyServlet extends HttpServlet {
         executor.shutdown();  // Important to prevent resource leaks
     }
 }
+
+
+
