@@ -1,37 +1,3 @@
-var source;
-
-function uploadFile() {
-    // 获取文件输入元素和文件
-    var fileInput = document.getElementById('file');
-    var file = fileInput.files[0];
-
-    // 创建一个新的FormData对象，用于存储要发送的数据
-    var formData = new FormData();
-    formData.append('file', file);
-
-    // 创建新的XMLHttpRequest对象
-    var xhr = new XMLHttpRequest();
-
-    // 发送POST请求到服务器
-    xhr.open('POST', '/upload2', true);
-    xhr.send(formData);
-
-    // 设置进度条
-    // source = new EventSource("http://yourserver.com/sse_endpoint");
-    //
-    // source.onmessage = function(event) {
-    //     var data = JSON.parse(event.data);
-    //
-    //     if (data.progress) {
-    //         document.getElementById('progress-bar').value = data.progress;
-    //         if (data.progress == 100) {
-    //             document.getElementById('next-btn').disabled = false;
-    //         }
-    //     } else if (data.message) {
-    //         printMessage(data.message);
-    //     }
-    // };
-}
 
 function printMessage(message) {
     var chat = document.getElementById('chat');
@@ -59,8 +25,11 @@ function sendMessage() {
     if (message !== '') {
         var chatContainer = document.getElementById('chat');
         var messageDiv = document.createElement('div');
+        var assistantDiv = document.createElement('div');
         messageDiv.classList.add('message', 'from-user');
+        assistantDiv.classList.add('message', 'from-assistant');
         messageDiv.textContent = 'You: ' + message;
+        assistantDiv.textContent = 'ChatGPT: ';
 
         chatContainer.appendChild(messageDiv);
         scrollToBottom();
@@ -68,13 +37,6 @@ function sendMessage() {
         // 清空消息输入框
         messageInput.value = '';
 
-
-
-
-        // 你想发送的消息
-        // var message = {
-        //     text: 'Hello, server!'
-        // };
 
 // 使用 fetch API 发送 POST 请求
         fetch('/sse', {
@@ -89,15 +51,12 @@ function sendMessage() {
             // 获取一个 ReadableStream
             var reader = response.body.getReader();
 
-            // 获取chat元素
-            var chat = document.getElementById('chat');
-
             // 使用一个递归函数来读取数据
             function read() {
                 return reader.read().then(({ value, done }) => {
                     if (done) {
                         console.log('Stream complete');
-                        chat.innerHTML +=  '<div></div>'; // 结束消息
+                        // 结束消息
                         return;
                     }
 
@@ -113,7 +72,7 @@ function sendMessage() {
                         let value = values.join(':').trim();
                         if(key === 'data') {
                             // 如果这一行是data，那么将数据添加到chat元素中
-                            chat.innerHTML += value ;
+                            assistantDiv.textContent += value ;
                         }
                     }
 
@@ -124,7 +83,6 @@ function sendMessage() {
             }
 
             // 开始读取数据
-            chat.innerHTML+='<div class="message">ChatGPT: '; // 功能未达预期
             read().catch(function(err) {
                 console.error('Error while reading:', err);
             });
