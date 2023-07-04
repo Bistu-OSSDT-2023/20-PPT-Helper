@@ -128,6 +128,33 @@ function sendMessage() {
         });}}
 
 
+// 新建对话
+function createNewConversation() {
+    var chatContainer = document.getElementById('chat');
+    chatContainer.innerHTML = "";
+
+    // 清空对话列表样式
+    var conversationList = document.getElementById('conversation-list');
+    var conversations = conversationList.getElementsByClassName('conversation');
+    for (var i = 0; i < conversations.length; i++) {
+        conversations[i].classList.remove('active');
+    }
+
+    // 添加新建对话样式
+    var newConversationButton = document.querySelector('.conversations button');
+    var newConversationLi = document.createElement('li');
+    newConversationLi.classList.add('conversation', 'active');
+    newConversationLi.innerHTML = '<button onclick="createNewConversation()">New Conversation</button>';
+    conversationList.insertBefore(newConversationLi, newConversationButton.parentNode);
+
+    // 滚动到聊天框底部
+    scrollToBottom();
+}
+// 滚动到聊天框底部
+function scrollToBottom() {
+    var chatContainer = document.getElementById('chat');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
         // 使用fetch API向服务器发送POST请求
 //         fetch('/sse', {
 //             method: 'POST',  // 使用POST方法
