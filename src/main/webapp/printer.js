@@ -29,7 +29,7 @@ function sendMessage() {
         messageDiv.classList.add('message', 'from-user');
         assistantDiv.classList.add('message', 'from-assistant');
         messageDiv.textContent = 'You: ' + message;
-        assistantDiv.textContent = 'ChatGPT: ';
+        assistantDiv.textContent = 'ChatGLM: ';
 
         chatContainer.appendChild(messageDiv);
         chatContainer.appendChild(assistantDiv);
@@ -74,6 +74,7 @@ function sendMessage() {
                         if(key === 'data') {
                             // 如果这一行是data，那么将数据添加到chat元素中
                             assistantDiv.textContent += value ;
+                            scrollToBottom();
                         }
                     }
 
