@@ -2,10 +2,9 @@ import org.apache.poi.xslf.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class PptMediaAnalyzer {
+public class pptMediaAnalyzer {
 
     public static void main(String[] args) {
         String pptFilePath = "D:\\testPPT\\daxueshiguang.pptx";  // 替换成你的PPT文件路径
