@@ -56,13 +56,18 @@ function sendMessage() {
     var message = messageInput.value;
 
     // 检查用户是否输入了消息
-    if (message) {
-        // 将用户的消息添加到聊天窗口
-        var chat = document.getElementById('chat');
-        chat.innerHTML += '<div class="message">You: ' + message + '</div>';
+    if (message !== '') {
+        var chatContainer = document.getElementById('chat');
+        var messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'from-user');
+        messageDiv.textContent = 'You: ' + message;
+
+        chatContainer.appendChild(messageDiv);
+        scrollToBottom();
 
         // 清空消息输入框
         messageInput.value = '';
+
 
 
 
