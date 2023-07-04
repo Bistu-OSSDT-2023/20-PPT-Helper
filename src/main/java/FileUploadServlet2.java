@@ -25,7 +25,7 @@ public class FileUploadServlet2 extends HttpServlet {
 
         Path uploads = Paths.get(UPLOAD_DIRECTORY);
         if (!Files.exists(uploads)) {
-            Files.createDirectories(uploads); // If the directory does not exist, create it
+            Files.createDirectories(uploads); // 如果目录不存在则创建目录
         }
         Path file = uploads.resolve(fileName);
 
@@ -35,7 +35,14 @@ public class FileUploadServlet2 extends HttpServlet {
 
         // Request successful
         request.setAttribute("message", "File Uploaded Successfully");
-        request.setAttribute("path", file.toString()); // Add the file path to the request attributes
+        request.setAttribute("path", file.toString()); // 添加文件路径到request中
         request.getRequestDispatcher("/result.jsp").forward(request, response);
+
+        Put2Cos cos = new Put2Cos();
+        try {
+            System.out.println(cos.putObject(file.toString().split(".pptx")[0]));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
