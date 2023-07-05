@@ -42,8 +42,7 @@
 
 ##  版权
 
-采用Apache 许可证2.0，Apache许可证，是一个由Apache软件基金会发布的自由软件许可证，该许可证宽容，本着项目开源的精神以及兼容性，选择了该许可证（该项目使用了https://github.com/apache/poi库，该库遵循Apache许可证2.0，以及接了chatGLM,也需要遵循The ChatGLM-6B License）
-
+采用Apache 许可证2.0，Apache许可证，是一个由Apache软件基金会发布的自由软件许可证，该许可证宽容，本着项目开源的精神以及兼容性，选择了该许可证。
 
 ---
 
