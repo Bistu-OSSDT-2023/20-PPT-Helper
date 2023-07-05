@@ -28,4 +28,14 @@
 
 </body>
 </html>
+<script>
+    // 监听键盘回车事件
+    var messageInput = document.getElementById('message-input');
+    messageInput.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById('send-btn').click();
+        }
+    });
+</script>
 <!--TODO：1.自动滚动 2.美化-->

@@ -15,14 +15,7 @@ function printMessage(message) {
     }
     typeWriter();
 }
-// 监听键盘回车事件
-var messageInput = document.getElementById('message-input');
-messageInput.addEventListener('keydown', function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // 阻止默认的换行行为
-        sendMessage();
-}
-});
+
 function sendMessage() {
     // 获取消息输入元素和用户输入的消息
     var messageInput = document.getElementById('message-input');
