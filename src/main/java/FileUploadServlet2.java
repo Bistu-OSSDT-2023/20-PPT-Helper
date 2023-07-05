@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 @MultipartConfig
 public class FileUploadServlet2 extends HttpServlet {
 
-    private static final String UPLOAD_DIRECTORY = "/home/admin/uploaded"; // Directory path
+    private static final String UPLOAD_DIRECTORY = "uploaded"; // Directory path
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
@@ -34,11 +34,14 @@ public class FileUploadServlet2 extends HttpServlet {
         }
 
         // Request successful
-        request.setAttribute("message", "File Uploaded Successfully");
-        request.setAttribute("path", file.toString()); // 添加文件路径到request中
-        request.getRequestDispatcher("/result.jsp").forward(request, response);
-
+//        request.setAttribute("message", "File Uploaded Successfully");
+//        request.setAttribute("path", file.toString()); // 添加文件路径到request中
+//        request.getRequestDispatcher("/result.jsp").forward(request, response);
+        String filename = file.toString().split("uploaded/")[1];
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().println(filename+" File Uploaded Successfully");
         response.setStatus(HttpServletResponse.SC_OK);
+
         // Set PPTX file path
         GLM glm = new GLM(file.toString());
 

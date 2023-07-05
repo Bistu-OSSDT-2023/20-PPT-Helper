@@ -10,7 +10,11 @@ function uploadFile() {
 
     // 创建新的XMLHttpRequest对象
     var xhr = new XMLHttpRequest();
-
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4 ) {
+            document.getElementById('status').innerText = this.responseText;
+        }
+    };
     // 发送POST请求到服务器
     xhr.open('POST', '/upload2', true);
     xhr.send(formData);
