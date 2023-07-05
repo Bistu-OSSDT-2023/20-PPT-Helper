@@ -2,7 +2,7 @@
 
 
 
-这是一个基于https://github.com/apache/poi库和ChaGLM大模型开发的PPT分析助手，用户可以上传自己的PPT给AI学习分析里面的内容，用户通过与AI对话，实现PPT文字内容查询，查找媒体动画，AI会直接告诉你。快来使用你的PPT-AI助手吧！
+这是一个基于https://github.com/apache/poi 库和ChaGLM大模型开发的PPT分析助手，用户可以上传自己的PPT给AI学习分析里面的内容，用户通过与AI对话，实现PPT文字内容查询，查找媒体动画，AI会直接告诉你。快来使用你的PPT-AI助手吧！
 
 ---
 
