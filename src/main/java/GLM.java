@@ -43,7 +43,7 @@ public class GLM {
 //    public static String get_jsonRequestBody(String input_content,boolean sys_prompt){
     public static String get_jsonRequestBody(String input_content,String File_content){
 
-        String Prompt_start = "下面是一个PPT文档的内容，请你根据内容来回答我的提问，若没有对应内容请直接告诉我而不要编造【PPT内容开始】";
+        String Prompt_start = "下面是一个PPT文档的内容，请你根据内容来回答我的提问，若没有对应内容请直接告诉我而不要编造，请用中文回答。【PPT内容开始】";
         String Prompt_end = "【PPT内容结束】下面是我的问题：";
         // 创建一个ObjectMapper对象，用于处理JSON
         ObjectMapper objectMapper = new ObjectMapper();

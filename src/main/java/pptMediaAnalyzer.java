@@ -7,7 +7,7 @@ import java.io.IOException;
 public class pptMediaAnalyzer {
 
     public static void main(String[] args) {
-        String pptFilePath = "D:\\testPPT\\daxueshiguang.pptx";  // 替换成你的PPT文件路径
+        String pptFilePath = "/Users/sunday/Downloads/daxueshiguang.pptx";  // 替换成你的PPT文件路径
         analyzePptMedia(pptFilePath);
     }
 

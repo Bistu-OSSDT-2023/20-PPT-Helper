@@ -16,6 +16,7 @@ import java.nio.file.StandardCopyOption;
 @MultipartConfig
 public class FileUploadServlet2 extends HttpServlet {
 
+//    private static final String UPLOAD_DIRECTORY = "/code/uploaded"; // Directory path
     private static final String UPLOAD_DIRECTORY = "/home/admin/uploaded"; // Directory path
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
