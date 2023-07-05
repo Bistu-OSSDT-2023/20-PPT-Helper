@@ -81,12 +81,22 @@
             <artifactId>cos_api</artifactId>
             <version>5.6.151</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.7</version>
+        </dependency>
+        <!--         https://mvnrepository.com/artifact/org.slf4j/slf4j-simple-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.5</version>
-            <scope>compile</scope>
+            <version>2.0.7</version>
+            <!-- 注意，若无type为jar则报错-->
+            <type>jar</type>
         </dependency>
+
+
 
     </dependencies>
     <build>

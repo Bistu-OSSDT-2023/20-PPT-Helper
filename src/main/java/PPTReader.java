@@ -15,18 +15,20 @@ public class PPTReader {
         }
     }
 
-    public static void readPPTFile(String filePath) throws IOException {
+    public static String readPPTFile(String filePath) throws IOException {
         XMLSlideShow ppt = new XMLSlideShow(new FileInputStream(new File(filePath)));
         List<XSLFSlide> slides = ppt.getSlides();
-
+        String res = "";
         // 输出幻灯片的数量
+        res+="Total slides: " + slides.size()+"\n";
         System.out.println("Total slides: " + slides.size());
 
         // 创建一个计数器
         int slideNumber = 1;
         for (XSLFSlide slide : slides) {
             // 输出当前处理的幻灯片的页数
-            System.out.println("Slide Number: " + slideNumber);
+            res+="【第" + slideNumber+"页】";
+//            System.out.println("Slide Number: " + slideNumber);
 
             List<XSLFShape> shapes = slide.getShapes();
             for (XSLFShape shape : shapes) {
@@ -34,14 +36,18 @@ public class PPTReader {
                     XSLFTextShape textShape = (XSLFTextShape) shape;
                     for (XSLFTextParagraph textParagraph : textShape.getTextParagraphs()) {
                         for (XSLFTextRun textRun : textParagraph.getTextRuns()) {
-                            System.out.println(textRun.getRawText());
+//                            System.out.println(textRun.getRawText().trim());
+                            res+=textRun.getRawText().trim();
                         }
                     }
                 }
             }
-
+            slideNumber++;
             // 在处理完一张幻灯片后，将计数器加一
-            System.out.println(slideNumber++ + " done");
+//            res+=slideNumber + " done"+"\n";
+//            System.out.println( slideNumber + " done");
         }
+        System.out.println(res);
+        return res;
     }
 }

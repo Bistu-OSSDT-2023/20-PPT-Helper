@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 @MultipartConfig
 public class FileUploadServlet2 extends HttpServlet {
 
-    private static final String UPLOAD_DIRECTORY = "uploaded"; // Directory path
+    private static final String UPLOAD_DIRECTORY = "/home/admin/uploaded"; // Directory path
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
@@ -38,11 +38,21 @@ public class FileUploadServlet2 extends HttpServlet {
         request.setAttribute("path", file.toString()); // 添加文件路径到request中
         request.getRequestDispatcher("/result.jsp").forward(request, response);
 
-        Put2Cos cos = new Put2Cos();
-        try {
-            System.out.println(cos.putObject(file.toString().split(".pptx")[0]));
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        // Set PPTX file path
+        GLM glm = new GLM(file.toString());
+
+
+
+
+
+
+        // 自动上传到腾讯云COS
+//        Put2Cos cos = new Put2Cos();
+//        try {
+//            System.out.println(cos.putObject(file.toString().split(".pptx")[0]));
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

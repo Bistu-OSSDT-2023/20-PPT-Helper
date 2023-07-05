@@ -34,8 +34,11 @@ public class SseProxyServlet extends HttpServlet {
         final AsyncContext asyncContext = req.startAsync();
 
         // Connect to the remote server
-        HttpRequest request = GLM.get_Request("sse-invoke",message.getText());
-
+        assert message != null;
+//        GLM glm = new GLM(); // 利用静态变量传递参数
+        System.out.println(GLM.file_path);
+        HttpRequest request = GLM.get_Request("sse-invoke",message.getText(),GLM.file_path);
+        // 我特意没给不传文件直接对话留接口
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
                 .thenAccept(response -> {
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body()))) {
