@@ -12,8 +12,8 @@
 3. 快速了解、学习PPT内容
 
 ## 项目结构
-![img_2.png](img_1.png)
-![img.png](img.png)
+![img_2.png](imgs/img_1.png)
+![img.png](imgs/img.png)
 
 
 ## 计划实现功能
@@ -43,8 +43,9 @@
 2. 下载Tomcat 10 \
 https://tomcat.apache.org/download-10.cgi \
 下载后解压并授予执行权限
-3. 将war文件放置在Tomcat的webapps目录下
-4. 启动Tomcat\
+3. 删除Tomcat自带的ROOT目录
+4. 将war文件放置在Tomcat的webapps目录下
+5. 启动Tomcat\
    进入bin目录，执行./startup.sh
 ### 开发部署
 1. 下载/克隆项目
