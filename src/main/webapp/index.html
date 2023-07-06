@@ -7,16 +7,15 @@
     <script src="printer.js"></script>
 </head>
 <body>
-    <h2>Upload a PPT file</h2>
+    <h2>PPT Helper</h2>
     <input type="file" id="file" accept=".ppt,.pptx">
     <button id="upload-btn" onclick="uploadFile()">Upload</button>
 <!--    <progress id="progress-bar" value="0" max="100"></progress>-->
 <!--    <button id="next-btn" disabled>Next Step</button>-->
-    <span class="status" id="status"></span>
+    <span class="status" id="status"></span> <!--用于显示上传状态-->
     <div class="chat" id="chat">
         <!-- Messages will be added here dynamically -->
-        <div class="message">You: Hello</div>
-        <div class="message">ChatGPT: Hi there! How can I assist you today?</div>
+        <div class="message-system">System:上传你的PPT，并询问AI</div>
 
     </div>
 
@@ -38,4 +37,3 @@
         }
     });
 </script>
-<!--TODO：1.自动滚动 2.美化-->
