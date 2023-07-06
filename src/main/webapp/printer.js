@@ -1,20 +1,5 @@
 
-function printMessage(message) {
-    var chat = document.getElementById('chat');
-    var newMessageDiv = document.createElement("div");
-    newMessageDiv.className = "message";
-    chat.appendChild(newMessageDiv);
 
-    var i = 0;
-    function typeWriter() {
-        if (i < message.length) {
-            newMessageDiv.textContent += message.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50); // 每50毫秒添加一个字符
-        }
-    }
-    typeWriter();
-}
 
 function sendMessage() {
     // 获取消息输入元素和用户输入的消息
@@ -30,6 +15,10 @@ function sendMessage() {
         assistantDiv.classList.add('message', 'from-assistant');
         messageDiv.textContent = 'You: ' + message;
         assistantDiv.textContent = 'ChatGLM: ';
+        var thinking = document.createElement('span');
+        thinking.textContent = '正在思考...';
+        // thinking.style.display = 'inline-block';
+        assistantDiv.appendChild(thinking);
 
         chatContainer.appendChild(messageDiv);
         chatContainer.appendChild(assistantDiv);
@@ -71,6 +60,8 @@ function sendMessage() {
                         // 解析每一行，获取事件类型和数据
                         let [key, ...values] = line.split(':');
                         let value = values.join(':').trim();
+
+
                         if(key === 'data') {
                             // 如果这一行是data，那么将数据添加到chat元素中
                             assistantDiv.textContent += value ;
@@ -83,7 +74,7 @@ function sendMessage() {
                     return read();
                 });
             }
-
+            thinking.innerHTML = '';
             // 开始读取数据
             read().catch(function(err) {
                 console.error('Error while reading:', err);
