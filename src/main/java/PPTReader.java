@@ -9,7 +9,7 @@ public class PPTReader {
 
     public static void main(String[] args) {
         try {
-            readPPTFile("/Users/sunday/Downloads/my12-3.pptx");
+            readPPTFile("/Users/sunday/Downloads/1.pptx");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,7 +37,8 @@ public class PPTReader {
                     for (XSLFTextParagraph textParagraph : textShape.getTextParagraphs()) {
                         for (XSLFTextRun textRun : textParagraph.getTextRuns()) {
 //                            System.out.println(textRun.getRawText().trim());
-                            res+=textRun.getRawText().trim();
+                            System.out.println(textRun.getRawText());
+                            res+=textRun.getRawText();
                         }
                     }
                 }
