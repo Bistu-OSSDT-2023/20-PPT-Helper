@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.http.*;
 import java.net.http.HttpClient.*;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 @WebServlet(urlPatterns={"/sse"}, asyncSupported=true)
@@ -41,6 +42,11 @@ public class SseProxyServlet extends HttpServlet {
             if (cookie.getName().equals("filepath")) {
                 file_path = cookie.getValue();
             }
+        }
+        if (Objects.equals(file_path, "")) {
+            resp.getWriter().println("Please upload a file first");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
         HttpRequest request = GLM.get_Request("sse-invoke",message.getText(),file_path);
         // 我特意没给不传文件直接对话留接口
