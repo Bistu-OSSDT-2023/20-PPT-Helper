@@ -36,8 +36,13 @@ public class SseProxyServlet extends HttpServlet {
         // Connect to the remote server
         assert message != null;
 //        GLM glm = new GLM(); // 利用静态变量传递参数
-        System.out.println(GLM.file_path);
-        HttpRequest request = GLM.get_Request("sse-invoke",message.getText(),GLM.file_path);
+        String file_path="";
+        for (Cookie cookie : req.getCookies()) {
+            if (cookie.getName().equals("filepath")) {
+                file_path = cookie.getValue();
+            }
+        }
+        HttpRequest request = GLM.get_Request("sse-invoke",message.getText(),file_path);
         // 我特意没给不传文件直接对话留接口
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
                 .thenAccept(response -> {
@@ -45,9 +50,9 @@ public class SseProxyServlet extends HttpServlet {
                         String line;
                         while ((line = reader.readLine()) != null) {
                             // Write each line to the servlet output stream
-                            ServletOutputStream outputStream = asyncContext.getResponse().getOutputStream();
-                            outputStream.write((line + "\n").getBytes());
-                            outputStream.flush();
+                            ServletOutputStream outputStream = asyncContext.getResponse().getOutputStream(); // 获取响应输出流
+                            outputStream.write((line + "\n").getBytes()); // 写入响应输出流
+                            outputStream.flush(); // 刷新响应输出流, 将缓冲的数据发送出去
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

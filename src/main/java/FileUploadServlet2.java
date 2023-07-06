@@ -1,10 +1,8 @@
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -40,6 +38,7 @@ public class FileUploadServlet2 extends HttpServlet {
 //        request.getRequestDispatcher("/result.jsp").forward(request, response);
         String filename = file.toString().split("uploaded/")[1];
         response.setContentType("text/html;charset=UTF-8");
+        response.addCookie(new Cookie("filepath",file.toString()));
         response.getWriter().println(filename+" File Uploaded Successfully");
         response.setStatus(HttpServletResponse.SC_OK);
 

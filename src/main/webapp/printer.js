@@ -17,7 +17,6 @@ function sendMessage() {
         assistantDiv.textContent = 'ChatGLM: ';
         var thinking = document.createElement('span');
         thinking.textContent = '正在思考...';
-        // thinking.style.display = 'inline-block';
         assistantDiv.appendChild(thinking);
 
         chatContainer.appendChild(messageDiv);

@@ -14,7 +14,10 @@ function uploadFile() {
         if (this.readyState === 4 ) {
             if (this.status === 200) {
                 document.getElementById('status').innerText = this.responseText;
-                document.getElementById('send-btn').disabled = false;
+                if(document.cookie.indexOf('filepath=') !== -1) {
+                    document.getElementById('send-btn').disabled = false;
+                    // Send-btn 不可用原因：没有上传文件/上传文件失败（服务器未返回Cookie）
+                }
             }
             else {
                 document.getElementById('status').innerText = 'Upload failed';
