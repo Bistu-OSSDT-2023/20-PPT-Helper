@@ -38,7 +38,9 @@ public class FileUploadServlet2 extends HttpServlet {
 //        request.getRequestDispatcher("/result.jsp").forward(request, response);
         String filename = file.toString().split("uploaded/")[1];
         response.setContentType("text/html;charset=UTF-8");
-        response.addCookie(new Cookie("filepath",file.toString()));
+        Cookie cookie = new Cookie("filepath",file.toString());
+        cookie.setDomain("YOUR_DOMAIN"); // 设置域名
+        response.addCookie(cookie);
         response.getWriter().println(filename+" File Uploaded Successfully");
         response.setStatus(HttpServletResponse.SC_OK);
 
