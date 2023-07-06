@@ -15,13 +15,13 @@
     <span class="status" id="status"></span> <!--用于显示上传状态-->
     <div class="chat" id="chat">
         <!-- Messages will be added here dynamically -->
-        <div class="message-system">System:上传你的PPT，并询问AI</div>
+        <div class="message">System: 上传你的PPT，并询问AI</div>
 
     </div>
 
     <div class="input-container">
         <input type="text" id="message-input">
-        <button id="send-btn" onclick="sendMessage()">Send</button>
+        <button id="send-btn" onclick="sendMessage()" disabled>Send</button>
     </div>
 
 
@@ -36,4 +36,5 @@
             document.getElementById('send-btn').click();
         }
     });
+
 </script>

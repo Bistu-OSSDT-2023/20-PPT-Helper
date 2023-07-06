@@ -12,7 +12,14 @@ function uploadFile() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState === 4 ) {
-            document.getElementById('status').innerText = this.responseText;
+            if (this.status === 200) {
+                document.getElementById('status').innerText = this.responseText;
+                document.getElementById('send-btn').disabled = false;
+            }
+            else {
+                document.getElementById('status').innerText = 'Upload failed';
+                console.log(this.responseText)
+            }
         }
     };
     // 发送POST请求到服务器
